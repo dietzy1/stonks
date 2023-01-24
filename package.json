@@ -1,8 +1,30 @@
 {
+  "name": "stonks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "clean": "tsc --build --clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dietzy1/stonks.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dietzy1/stonks/issues"
+  },
+  "homepage": "https://github.com/dietzy1/stonks#readme",
   "devDependencies": {
+    "@types/node": "^18.11.18",
     "typescript": "^4.9.4"
   },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "mongodb": "4.13"
   }
 }
