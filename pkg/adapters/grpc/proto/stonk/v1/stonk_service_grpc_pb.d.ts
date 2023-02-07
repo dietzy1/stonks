@@ -5,95 +5,37 @@
 /* eslint-disable */
 
 import * as grpc from "@grpc/grpc-js";
-import * as stonk_service_pb from "./stonk_service_pb.js";
+import * as stonk_service_pb from "./stonk_service_pb";
 
-interface IGreeterServiceService
-  extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
-  sayHello: IGreeterServiceService_ISayHello;
+interface IStonkServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
+    getStonk: IStonkServiceService_IGetStonk;
 }
 
-interface IGreeterServiceService_ISayHello
-  extends grpc.MethodDefinition<
-    stonk_service_pb.SayHelloRequest,
-    stonk_service_pb.SayHelloResponse
-  > {
-  path: "/stonk.v1.GreeterService/SayHello";
-  requestStream: false;
-  responseStream: false;
-  requestSerialize: grpc.serialize<stonk_service_pb.SayHelloRequest>;
-  requestDeserialize: grpc.deserialize<stonk_service_pb.SayHelloRequest>;
-  responseSerialize: grpc.serialize<stonk_service_pb.SayHelloResponse>;
-  responseDeserialize: grpc.deserialize<stonk_service_pb.SayHelloResponse>;
+interface IStonkServiceService_IGetStonk extends grpc.MethodDefinition<stonk_service_pb.GetStonkRequest, stonk_service_pb.GetStonkResponse> {
+    path: "/stonk.v1.StonkService/GetStonk";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<stonk_service_pb.GetStonkRequest>;
+    requestDeserialize: grpc.deserialize<stonk_service_pb.GetStonkRequest>;
+    responseSerialize: grpc.serialize<stonk_service_pb.GetStonkResponse>;
+    responseDeserialize: grpc.deserialize<stonk_service_pb.GetStonkResponse>;
 }
 
-export const GreeterServiceService: IGreeterServiceService;
+export const StonkServiceService: IStonkServiceService;
 
-export interface IGreeterServiceServer
-  extends grpc.UntypedServiceImplementation {
-  sayHello: grpc.handleUnaryCall<
-    stonk_service_pb.SayHelloRequest,
-    stonk_service_pb.SayHelloResponse
-  >;
+export interface IStonkServiceServer extends grpc.UntypedServiceImplementation {
+    getStonk: grpc.handleUnaryCall<stonk_service_pb.GetStonkRequest, stonk_service_pb.GetStonkResponse>;
 }
 
-export interface IGreeterServiceClient {
-  sayHello(
-    request: stonk_service_pb.SayHelloRequest,
-    callback: (
-      error: grpc.ServiceError | null,
-      response: stonk_service_pb.SayHelloResponse
-    ) => void
-  ): grpc.ClientUnaryCall;
-  sayHello(
-    request: stonk_service_pb.SayHelloRequest,
-    metadata: grpc.Metadata,
-    callback: (
-      error: grpc.ServiceError | null,
-      response: stonk_service_pb.SayHelloResponse
-    ) => void
-  ): grpc.ClientUnaryCall;
-  sayHello(
-    request: stonk_service_pb.SayHelloRequest,
-    metadata: grpc.Metadata,
-    options: Partial<grpc.CallOptions>,
-    callback: (
-      error: grpc.ServiceError | null,
-      response: stonk_service_pb.SayHelloResponse
-    ) => void
-  ): grpc.ClientUnaryCall;
+export interface IStonkServiceClient {
+    getStonk(request: stonk_service_pb.GetStonkRequest, callback: (error: grpc.ServiceError | null, response: stonk_service_pb.GetStonkResponse) => void): grpc.ClientUnaryCall;
+    getStonk(request: stonk_service_pb.GetStonkRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: stonk_service_pb.GetStonkResponse) => void): grpc.ClientUnaryCall;
+    getStonk(request: stonk_service_pb.GetStonkRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: stonk_service_pb.GetStonkResponse) => void): grpc.ClientUnaryCall;
 }
 
-export class GreeterServiceClient
-  extends grpc.Client
-  implements IGreeterServiceClient
-{
-  constructor(
-    address: string,
-    credentials: grpc.ChannelCredentials,
-    options?: Partial<grpc.ClientOptions>
-  );
-  public sayHello(
-    request: stonk_service_pb.SayHelloRequest,
-    callback: (
-      error: grpc.ServiceError | null,
-      response: stonk_service_pb.SayHelloResponse
-    ) => void
-  ): grpc.ClientUnaryCall;
-  public sayHello(
-    request: stonk_service_pb.SayHelloRequest,
-    metadata: grpc.Metadata,
-    callback: (
-      error: grpc.ServiceError | null,
-      response: stonk_service_pb.SayHelloResponse
-    ) => void
-  ): grpc.ClientUnaryCall;
-  public sayHello(
-    request: stonk_service_pb.SayHelloRequest,
-    metadata: grpc.Metadata,
-    options: Partial<grpc.CallOptions>,
-    callback: (
-      error: grpc.ServiceError | null,
-      response: stonk_service_pb.SayHelloResponse
-    ) => void
-  ): grpc.ClientUnaryCall;
+export class StonkServiceClient extends grpc.Client implements IStonkServiceClient {
+    constructor(address: string, credentials: grpc.ChannelCredentials, options?: Partial<grpc.ClientOptions>);
+    public getStonk(request: stonk_service_pb.GetStonkRequest, callback: (error: grpc.ServiceError | null, response: stonk_service_pb.GetStonkResponse) => void): grpc.ClientUnaryCall;
+    public getStonk(request: stonk_service_pb.GetStonkRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: stonk_service_pb.GetStonkResponse) => void): grpc.ClientUnaryCall;
+    public getStonk(request: stonk_service_pb.GetStonkRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: stonk_service_pb.GetStonkResponse) => void): grpc.ClientUnaryCall;
 }

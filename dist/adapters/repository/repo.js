@@ -1,5 +1,8 @@
-import { MongoClient } from "mongodb";
-export class Repo {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Repo = void 0;
+const mongodb_1 = require("mongodb");
+class Repo {
     constructor() {
         this.client = connectDb();
     }
@@ -27,9 +30,10 @@ export class Repo {
         }
     }
 }
+exports.Repo = Repo;
 function connectDb() {
     try {
-        const client = new MongoClient(process.env.MONGO_URI);
+        const client = new mongodb_1.MongoClient(process.env.MONGO_URI);
         return client;
     }
     catch (err) {

@@ -1,5 +1,8 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Client = void 0;
 //client
-export class Client {
+class Client {
     //Method
     async getStockData(date, ticker) {
         try {
@@ -19,4 +22,5 @@ export class Client {
         }
     }
 }
+exports.Client = Client;
 //# sourceMappingURL=client.js.map

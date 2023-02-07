@@ -30,5 +30,5 @@ function main() {
 
   const server = new Server(domain);
 
-  startServer();
+  startServer(server);
 }

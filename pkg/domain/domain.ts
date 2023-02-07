@@ -20,9 +20,11 @@ export class Domain {
 
   private c: client;
   private r: repo;
+
+  getStonk(stonk: stock): void {}
 }
 
-function getDate() {
+/* function getDate() {
   const d = new Date();
   const date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
   console.log(date);
@@ -37,4 +39,4 @@ function getDate() {
       n.getFullYear() + "-" + (n.getMonth() + 1) + "-" + n.getDate();
     console.log(prior);
   }
-}
+} */
