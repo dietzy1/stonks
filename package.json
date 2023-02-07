@@ -33,6 +33,7 @@
     "@grpc/grpc-js": "^1.8.5",
     "dotenv": "^16.0.3",
     "mongodb": "4.13",
+    "playwright": "^1.30.0",
     "protoc-gen-grpc-js": "^0.4.0",
     "ts-proto": "^1.138.0"
   }

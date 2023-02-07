@@ -10,7 +10,14 @@ export interface client {
   getStockData(date: string, ticker: string): Promise<stock | undefined>;
 }
 
-export interface repo {}
+export interface scraper {
+  getStonk(stonk: stock): void;
+}
+
+export interface repo {
+  getStockData(date: string, ticker: string): Promise<stock | undefined>;
+  insertStockData(data: stock): Promise<void>;
+}
 
 export class Domain {
   constructor(c: client, r: repo) {
@@ -21,10 +28,12 @@ export class Domain {
   private c: client;
   private r: repo;
 
-  getStonk(stonk: stock): void {}
+  getStonk(stonk: stock): void {
+    console.log("stonk");
+  }
 }
 
-/* function getDate() {
+function getDate() {
   const d = new Date();
   const date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
   console.log(date);
@@ -39,4 +48,4 @@ export class Domain {
       n.getFullYear() + "-" + (n.getMonth() + 1) + "-" + n.getDate();
     console.log(prior);
   }
-} */
+}

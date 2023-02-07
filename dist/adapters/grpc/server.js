@@ -32,6 +32,17 @@ class Server {
         this.d = d;
     }
     getStonk(call, callback) {
+        const req = call.request.toObject();
+        console.log(req);
+        //create a stock object with test data
+        const stonk = {
+            low: 1,
+            open: 1,
+            close: 1,
+            high: 1,
+            date: "2021-01-01",
+        };
+        this.d.getStonk(stonk);
         const res = new stonk_service_pb_js_1.GetStonkResponse();
         console.log(call.request.getStonk());
         res.setError("nope");

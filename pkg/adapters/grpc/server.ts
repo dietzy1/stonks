@@ -1,8 +1,6 @@
 import * as grpc from "@grpc/grpc-js";
-import { ServerUnaryCallImpl } from "@grpc/grpc-js/build/src/server-call.js";
 import { StonkServiceService } from "./proto/stonk/v1/stonk_service_grpc_pb.js";
 
-//immport stock from domain folder
 import { stock } from "../../domain/domain";
 
 import {
@@ -12,10 +10,7 @@ import {
 
 import {
   sendUnaryData,
-  ServerDuplexStream,
-  ServerReadableStream,
   ServerUnaryCall,
-  ServerWritableStream,
   status,
   UntypedHandleCall,
 } from "@grpc/grpc-js";
@@ -38,6 +33,22 @@ export class Server {
     call: ServerUnaryCall<GetStonkRequest, GetStonkResponse>,
     callback: sendUnaryData<GetStonkResponse>
   ) {
+    const req = call.request.toObject();
+
+    console.log(req);
+
+    //create a stock object with test data
+
+    const stonk: stock = {
+      low: 1,
+      open: 1,
+      close: 1,
+      high: 1,
+      date: "2021-01-01",
+    };
+
+    this.d.getStonk(stonk);
+
     const res = new GetStonkResponse();
     console.log(call.request.getStonk());
     res.setError("nope");
