@@ -6,6 +6,20 @@ export type stock = {
   date: string;
 };
 
+export type scraperStock = {
+  symbyl: string;
+  name: string;
+  price: string;
+  change: string;
+  percentChange: string;
+  volume: string;
+  avgVolume: string;
+  marketCap: string;
+  peRatio: string;
+  week52High: string;
+  unused: string;
+};
+
 export interface client {
   getStockData(date: string, ticker: string): Promise<stock | undefined>;
 }
@@ -20,13 +34,15 @@ export interface repo {
 }
 
 export class Domain {
-  constructor(c: client, r: repo) {
+  constructor(c: client, r: repo, s: scraper) {
     this.c = c;
     this.r = r;
+    this.s = s;
   }
 
   private c: client;
   private r: repo;
+  private s: scraper;
 
   getStonk(stonk: stock): void {
     console.log("stonk");

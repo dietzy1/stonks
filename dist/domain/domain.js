@@ -2,9 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Domain = void 0;
 class Domain {
-    constructor(c, r) {
+    constructor(c, r, s) {
         this.c = c;
         this.r = r;
+        this.s = s;
     }
     getStonk(stonk) {
         console.log("stonk");
