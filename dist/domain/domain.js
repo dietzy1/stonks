@@ -7,8 +7,21 @@ class Domain {
         this.r = r;
         this.s = s;
     }
-    getStonk(stonk) {
-        console.log("stonk");
+    async getStonk(ticker) {
+        //find out what date it is here
+        const temp = "";
+        return await this.c.getStockData(temp, ticker);
+    }
+    async getGainers() {
+        //Implementation
+        return await this.s.scrapeGainers();
+    }
+    async getLoosers() {
+        //Implementation
+        return await this.s.scrapeLoosers();
+    }
+    async compare() {
+        //Implementation
     }
 }
 exports.Domain = Domain;

@@ -5,22 +5,21 @@ package stonk.v1;
 service StonkService {
     rpc GetStonk(GetStonkRequest) returns (GetStonkResponse) {}
     rpc Gainers(GainersRequest) returns (GainersResponse) {}
+    rpc Loosers(LoosersRequest) returns (LoosersResponse) {}
+    rpc Compare(CompareRequest) returns (CompareResponse) {}
     }
-    
-    
     
     message GetStonkRequest {
         string stonk = 1;
     }
     
     message GetStonkResponse {
-        string error = 1;
-        string stonk = 2;
-        string buyornot = 3;
+        string stonk = 1;
+        string buyornot = 2;
     }
 
 message GainersRequest {
-
+string null = 1;
 }
 
 message GainersResponse {
@@ -37,8 +36,33 @@ message GainersResponse {
     string unused = 11;
 }
 
+message LoosersRequest {
+string null = 1;
+}
 
+message LoosersResponse {
+    string symbol = 1;
+    string name = 2;
+    string price = 3;
+    string change = 4;
+    string percent_change = 5;
+    string volume = 6;
+    string avg_volume = 7;
+    string market_cap = 8;
+    string pe_ratio = 9;
+    string week52_high = 10;
+    string unused = 11;
+}
 
+message CompareRequest {
+string null = 1;
+}
+
+message CompareResponse {
+string strat = 1;
+string no_strat = 2;
+string graph_link = 3;
+}
 
 
 

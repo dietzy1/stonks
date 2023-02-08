@@ -21,28 +21,22 @@ function main() {
     throw result.error;
   }
 
-  /*  const ok = chooseDay();
-  console.log(ok); */
-
-  /*  const ok = getDate();
-  console.log(ok); */
-
-  //initiate scraper client
+  //Initiate scraper client
   const scraper = new Scraper();
-
-  scraper.scrapeGainers();
-
   //Initiate fetch client
+  const client = new Client();
 
-  /*   const client = new Client();
-
+  //Initiate repository
   const repo = new Repo();
 
-  const domain = new Domain(client, repo);
+  //Initiate domain
+  const domain = new Domain(client, repo, scraper);
 
+  //Initiate GRPC server
   const server = new Server(domain);
 
-  startServer(server); */
+  //Start GRPC server
+  startServer(server);
 }
 
 function getDate() {
@@ -75,12 +69,6 @@ function chooseDay() {
     return "Friday";
   }
 }
-
-const day = new Date().getDay();
-
-//use a hashmap to find out what day of the week it is
-const map1 = new Map();
-//fill out the map
 
 //TODO:THESIS
 

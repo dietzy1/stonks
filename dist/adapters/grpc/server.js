@@ -31,6 +31,7 @@ class Server {
     constructor(d) {
         this.d = d;
     }
+    //Entry point for the getStonk RPC method
     getStonk(call, callback) {
         const req = call.request.toObject();
         console.log(req);
@@ -42,14 +43,22 @@ class Server {
             high: 1,
             date: "2021-01-01",
         };
-        this.d.getStonk(stonk);
         const res = new stonk_service_pb_js_1.GetStonkResponse();
         console.log(call.request.getStonk());
-        res.setError("nope");
         res.setStonk("SPY");
         res.setBuyornot("BUY");
         res.serializeBinary();
         callback(null, res);
+    }
+    //Entry point for the Gainers RPC method
+    gainers(call, callback) {
+        //Implementation
+    }
+    //entry point for the Losers RPC method
+    loosers(call, callback) { }
+    //entry point for the Compare RPC method
+    compare(call, callback) {
+        //Implementation
     }
 }
 exports.Server = Server;

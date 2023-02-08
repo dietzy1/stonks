@@ -23,4 +23,5 @@ class Client {
     }
 }
 exports.Client = Client;
+//async function that scrapes https://finance.yahoo.com/gainers and returns the top 10 gainers
 //# sourceMappingURL=client.js.map

@@ -2,22 +2,27 @@ import * as grpc from "@grpc/grpc-js";
 import { StonkServiceService } from "./proto/stonk/v1/stonk_service_grpc_pb.js";
 
 import { stock } from "../../domain/domain";
+import { scraperStock } from "../../domain/domain";
 
 import {
   GetStonkRequest,
   GetStonkResponse,
+  GainersRequest,
+  GainersResponse,
+  LoosersRequest,
+  LoosersResponse,
+  CompareRequest,
+  CompareResponse,
 } from "./proto/stonk/v1/stonk_service_pb.js";
 
-import {
-  sendUnaryData,
-  ServerUnaryCall,
-  status,
-  UntypedHandleCall,
-} from "@grpc/grpc-js";
+import { sendUnaryData, ServerUnaryCall } from "@grpc/grpc-js";
 
 //I need to define the domain interface and then then the server methods should be able to perform call on the domain methods and return the appropiate response
 interface domain {
-  getStonk(stonk: stock): void;
+  getStonk(ticker: string): Promise<stock | undefined>;
+  getGainers(): Promise<scraperStock[]>;
+  getLoosers(): Promise<scraperStock[]>;
+  compare(): Promise<void>;
 }
 
 export class Server {
@@ -29,6 +34,7 @@ export class Server {
     this.d = d;
   }
 
+  //Entry point for the getStonk RPC method
   getStonk(
     call: ServerUnaryCall<GetStonkRequest, GetStonkResponse>,
     callback: sendUnaryData<GetStonkResponse>
@@ -47,15 +53,34 @@ export class Server {
       date: "2021-01-01",
     };
 
-    this.d.getStonk(stonk);
-
     const res = new GetStonkResponse();
     console.log(call.request.getStonk());
-    res.setError("nope");
     res.setStonk("SPY");
     res.setBuyornot("BUY");
     res.serializeBinary();
     callback(null, res);
+  }
+
+  //Entry point for the Gainers RPC method
+  gainers(
+    call: ServerUnaryCall<GainersRequest, GainersResponse>,
+    callback: sendUnaryData<GainersResponse>
+  ) {
+    //Implementation
+  }
+
+  //entry point for the Losers RPC method
+  loosers(
+    call: ServerUnaryCall<LoosersRequest, LoosersResponse>,
+    callback: sendUnaryData<LoosersResponse>
+  ) {}
+
+  //entry point for the Compare RPC method
+  compare(
+    call: ServerUnaryCall<CompareRequest, CompareResponse>,
+    callback: sendUnaryData<CompareResponse>
+  ) {
+    //Implementation
   }
 }
 

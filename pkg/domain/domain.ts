@@ -25,7 +25,8 @@ export interface client {
 }
 
 export interface scraper {
-  getStonk(stonk: stock): void;
+  scrapeGainers(): Promise<scraperStock[]>;
+  scrapeLoosers(): Promise<scraperStock[]>;
 }
 
 export interface repo {
@@ -44,8 +45,25 @@ export class Domain {
   private r: repo;
   private s: scraper;
 
-  getStonk(stonk: stock): void {
-    console.log("stonk");
+  async getStonk(ticker: string): Promise<stock | undefined> {
+    //find out what date it is here
+    const temp = "";
+
+    return await this.c.getStockData(temp, ticker);
+  }
+
+  async getGainers(): Promise<scraperStock[]> {
+    //Implementation
+    return await this.s.scrapeGainers();
+  }
+
+  async getLoosers(): Promise<scraperStock[]> {
+    //Implementation
+    return await this.s.scrapeLoosers();
+  }
+
+  async compare() {
+    //Implementation
   }
 }
 

@@ -23,7 +23,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const client_js_1 = require("./adapters/rest/client.js");
+const repo_js_1 = require("./adapters/repository/repo.js");
+const domain_js_1 = require("./domain/domain.js");
+const server_js_1 = require("./adapters/grpc/server.js");
 const scraping_js_1 = require("./adapters/rest/scraping.js");
+const server_js_2 = require("./adapters/grpc/server.js");
 const dotenv = __importStar(require("dotenv")); // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 /* require("dotenv").config(); */
 main();
@@ -33,23 +38,18 @@ function main() {
     if (result.error) {
         throw result.error;
     }
-    /*  const ok = chooseDay();
-    console.log(ok); */
-    /*  const ok = getDate();
-    console.log(ok); */
-    //initiate scraper client
+    //Initiate scraper client
     const scraper = new scraping_js_1.Scraper();
-    scraper.scrapeGainers();
     //Initiate fetch client
-    /*   const client = new Client();
-  
-    const repo = new Repo();
-  
-    const domain = new Domain(client, repo);
-  
-    const server = new Server(domain);
-  
-    startServer(server); */
+    const client = new client_js_1.Client();
+    //Initiate repository
+    const repo = new repo_js_1.Repo();
+    //Initiate domain
+    const domain = new domain_js_1.Domain(client, repo, scraper);
+    //Initiate GRPC server
+    const server = new server_js_1.Server(domain);
+    //Start GRPC server
+    (0, server_js_2.startServer)(server);
 }
 function getDate() {
     const d = new Date();
@@ -74,10 +74,6 @@ function chooseDay() {
         return "Friday";
     }
 }
-const day = new Date().getDay();
-//use a hashmap to find out what day of the week it is
-const map1 = new Map();
-//fill out the map
 //TODO:THESIS
 //if thursday is higher than friday what does that say about the following monday
 //if tuesday is lower than monday what does that say about the following wednesday
