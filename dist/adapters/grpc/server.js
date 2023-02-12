@@ -32,39 +32,54 @@ class Server {
         this.d = d;
     }
     //Entry point for the getStonk RPC method
-    getStonk(call, callback) {
-        const req = call.request.toObject();
-        console.log(req);
-        //create a stock object with test data
-        const stonk = {
-            low: 1,
-            open: 1,
-            close: 1,
-            high: 1,
-            date: "2021-01-01",
-        };
+    async getStonk(call, callback) {
+        console.log("getStonk called");
+        //Create response protobuf object
         const res = new stonk_service_pb_js_1.GetStonkResponse();
-        console.log(call.request.getStonk());
-        res.setStonk("SPY");
-        res.setBuyornot("BUY");
+        //Call domain method
+        this.d.getStonk(call.request.getStonk()).then((stock) => {
+            if (stock) {
+                res.setStonk(stock.ticker);
+                res.setBuyornot(stock.buyornot);
+            }
+        });
         res.serializeBinary();
         callback(null, res);
     }
     //Entry point for the Gainers RPC method
-    gainers(call, callback) {
+    async gainers(call, callback) {
         //Implementation
+        console.log("Gainers called");
+        const res = new stonk_service_pb_js_1.GainersResponse();
+        res.setAvgVolume("1");
+        res.serializeBinary;
+        callback(null, res);
     }
     //entry point for the Losers RPC method
-    loosers(call, callback) { }
-    //entry point for the Compare RPC method
-    compare(call, callback) {
+    async loosers(call, callback) {
         //Implementation
+        console.log("Loosers called");
+        const res = new stonk_service_pb_js_1.LoosersResponse();
+        res.setAvgVolume("2");
+        res.serializeBinary;
+        callback(null, res);
+    }
+    //entry point for the Compare RPC method
+    async compare(call, callback) {
+        //Implementation
+        const res = new stonk_service_pb_js_1.CompareResponse();
+        res.setStrat("3");
+        res.serializeBinary;
+        callback(null, res);
+        console.log("Compare called");
     }
 }
 exports.Server = Server;
 //Needs to accept a server
 function startServer(s) {
     var server = new grpc.Server();
+    grpc.setLogVerbosity(grpc.logVerbosity.DEBUG);
+    grpc.setLogger(console);
     server.addService(stonk_service_grpc_pb_js_1.StonkServiceService, s);
     server.bindAsync("0.0.0.0:8000", grpc.ServerCredentials.createInsecure(), () => {
         server.start();
@@ -72,7 +87,6 @@ function startServer(s) {
     console.log("Server running at localhost:8000");
 }
 exports.startServer = startServer;
-//I need to rewrite some logic so the generated js filed are going to DIST folder instead of the stonk/v1 folder
 //Implement the SayHelloRequest method.
 /* function sayHello(call, callback) {
   var reply = new SayHelloResponse();

@@ -6,7 +6,8 @@
   "type": "commonjs",
   "scripts": {
     "build": "tsc",
-    "clean": "tsc --build --clean"
+    "clean": "tsc --build --clean",
+    "server": "GRPC_VERBOSITY=DEBUG GRPC_TRACE=all node dist/index.js"
   },
   "repository": {
     "type": "git",

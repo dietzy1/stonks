@@ -7,20 +7,20 @@ service StonkService {
     rpc Gainers(GainersRequest) returns (GainersResponse) {}
     rpc Loosers(LoosersRequest) returns (LoosersResponse) {}
     rpc Compare(CompareRequest) returns (CompareResponse) {}
-    }
+}
     
-    message GetStonkRequest {
-        string stonk = 1;
-    }
+message GetStonkRequest {
+    string stonk = 1;
+}
     
-    message GetStonkResponse {
-        string stonk = 1;
-        string buyornot = 2;
-    }
+message GetStonkResponse {
+    string stonk = 1;
+    string buyornot = 2;
+}
 
 message GainersRequest {
-string null = 1;
 }
+
 
 message GainersResponse {
     string symbol = 1;
@@ -37,7 +37,6 @@ message GainersResponse {
 }
 
 message LoosersRequest {
-string null = 1;
 }
 
 message LoosersResponse {
@@ -55,13 +54,12 @@ message LoosersResponse {
 }
 
 message CompareRequest {
-string null = 1;
 }
 
 message CompareResponse {
-string strat = 1;
-string no_strat = 2;
-string graph_link = 3;
+    string strat = 1;
+    string no_strat = 2;
+    string graph_link = 3;
 }
 
 

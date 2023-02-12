@@ -519,7 +519,7 @@ proto.stonk.v1.GainersRequest.prototype.toObject = function(opt_includeInstance)
  */
 proto.stonk.v1.GainersRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    pb_null: jspb.Message.getFieldWithDefault(msg, 1, "")
+
   };
 
   if (includeInstance) {
@@ -556,10 +556,6 @@ proto.stonk.v1.GainersRequest.deserializeBinaryFromReader = function(msg, reader
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setNull(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -589,31 +585,6 @@ proto.stonk.v1.GainersRequest.prototype.serializeBinary = function() {
  */
 proto.stonk.v1.GainersRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getNull();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string null = 1;
- * @return {string}
- */
-proto.stonk.v1.GainersRequest.prototype.getNull = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.stonk.v1.GainersRequest} returns this
- */
-proto.stonk.v1.GainersRequest.prototype.setNull = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -1079,7 +1050,7 @@ proto.stonk.v1.LoosersRequest.prototype.toObject = function(opt_includeInstance)
  */
 proto.stonk.v1.LoosersRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    pb_null: jspb.Message.getFieldWithDefault(msg, 1, "")
+
   };
 
   if (includeInstance) {
@@ -1116,10 +1087,6 @@ proto.stonk.v1.LoosersRequest.deserializeBinaryFromReader = function(msg, reader
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setNull(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -1149,31 +1116,6 @@ proto.stonk.v1.LoosersRequest.prototype.serializeBinary = function() {
  */
 proto.stonk.v1.LoosersRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getNull();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string null = 1;
- * @return {string}
- */
-proto.stonk.v1.LoosersRequest.prototype.getNull = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.stonk.v1.LoosersRequest} returns this
- */
-proto.stonk.v1.LoosersRequest.prototype.setNull = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -1639,7 +1581,7 @@ proto.stonk.v1.CompareRequest.prototype.toObject = function(opt_includeInstance)
  */
 proto.stonk.v1.CompareRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    pb_null: jspb.Message.getFieldWithDefault(msg, 1, "")
+
   };
 
   if (includeInstance) {
@@ -1676,10 +1618,6 @@ proto.stonk.v1.CompareRequest.deserializeBinaryFromReader = function(msg, reader
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setNull(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -1709,31 +1647,6 @@ proto.stonk.v1.CompareRequest.prototype.serializeBinary = function() {
  */
 proto.stonk.v1.CompareRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getNull();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-};
-
-
-/**
- * optional string null = 1;
- * @return {string}
- */
-proto.stonk.v1.CompareRequest.prototype.getNull = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.stonk.v1.CompareRequest} returns this
- */
-proto.stonk.v1.CompareRequest.prototype.setNull = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 

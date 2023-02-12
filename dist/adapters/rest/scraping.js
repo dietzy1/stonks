@@ -31,22 +31,7 @@ class Scraper {
                 return all;
             });
             //convert mostActive into a scraperStock type
-            const jsonData = this.convertToScraperStock(gainers);
-            /*    const jsonData = gainers.map((stock) => {
-              return {
-                symbyl: stock[0],
-                name: stock[1],
-                price: stock[2],
-                change: stock[3],
-                percentChange: stock[4],
-                volume: stock[5],
-                avgVolume: stock[6],
-                marketCap: stock[7],
-                peRatio: stock[8],
-                week52High: stock[9],
-                unused: stock[10],
-              };
-            }); */
+            const jsonData = await this.convertToScraperStock(gainers);
             await page.waitForTimeout(this.randomTime());
             await browser.close();
             return jsonData;
@@ -80,7 +65,7 @@ class Scraper {
             return all;
         });
         //convert mostActive into a scraperStock type
-        const jsonData = this.convertToScraperStock(gainers);
+        const jsonData = await this.convertToScraperStock(gainers);
         await page.waitForTimeout(this.randomTime());
         await browser.close();
         return jsonData;
@@ -97,7 +82,7 @@ class Scraper {
         return random;
     }
     //function that takes in json data and returns a scraperStock type
-    convertToScraperStock(jsonData) {
+    async convertToScraperStock(jsonData) {
         jsonData.map((stock) => {
             return {
                 symbyl: stock[0],

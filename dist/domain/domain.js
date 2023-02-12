@@ -9,8 +9,13 @@ class Domain {
     }
     async getStonk(ticker) {
         //find out what date it is here
-        const temp = "";
-        return await this.c.getStockData(temp, ticker);
+        //Get stock data
+        await this.c.getStockData("", ticker);
+        const rec = {
+            ticker: ticker,
+            buyornot: "Buy",
+        };
+        return rec;
     }
     async getGainers() {
         //Implementation

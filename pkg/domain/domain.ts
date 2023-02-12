@@ -6,6 +6,11 @@ export type stock = {
   date: string;
 };
 
+export type recommendation = {
+  ticker: string;
+  buyornot: string;
+};
+
 export type scraperStock = {
   symbyl: string;
   name: string;
@@ -45,11 +50,18 @@ export class Domain {
   private r: repo;
   private s: scraper;
 
-  async getStonk(ticker: string): Promise<stock | undefined> {
+  async getStonk(ticker: string): Promise<recommendation | undefined> {
     //find out what date it is here
-    const temp = "";
 
-    return await this.c.getStockData(temp, ticker);
+    //Get stock data
+    await this.c.getStockData("", ticker);
+
+    const rec: recommendation = {
+      ticker: ticker,
+      buyornot: "Buy",
+    };
+
+    return rec;
   }
 
   async getGainers(): Promise<scraperStock[]> {
