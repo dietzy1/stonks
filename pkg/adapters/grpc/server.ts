@@ -1,8 +1,5 @@
 import * as grpc from "@grpc/grpc-js";
-import {
-  StonkServiceService,
-  StonkServiceClient,
-} from "./proto/stonk/v1/stonk_service_grpc_pb.js";
+import { StonkServiceService } from "./proto/stonk/v1/stonk_service_grpc_pb.js";
 
 import { stock, scraperStock, recommendation } from "../../domain/domain";
 
