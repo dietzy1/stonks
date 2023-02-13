@@ -1,9 +1,14 @@
 export type stock = {
+  afterHours: number;
+  close: number;
+  from: string;
+  high: number;
   low: number;
   open: number;
-  close: number;
-  high: number;
-  date: string;
+  preMarket: number;
+  status: string;
+  symbol: string;
+  volume: number;
 };
 
 export type recommendation = {
@@ -12,7 +17,7 @@ export type recommendation = {
 };
 
 export type scraperStock = {
-  symbyl: string;
+  symbol: string;
   name: string;
   price: string;
   change: string;
@@ -37,6 +42,8 @@ export interface scraper {
 export interface repo {
   getStockData(date: string, ticker: string): Promise<stock | undefined>;
   insertStockData(data: stock): Promise<void>;
+  insertGainerData(data: scraperStock[]): Promise<void>;
+  insertLooserData(data: scraperStock[]): Promise<void>;
 }
 
 export class Domain {
@@ -50,11 +57,16 @@ export class Domain {
   private r: repo;
   private s: scraper;
 
+  //Returns a recommendation
   async getStonk(ticker: string): Promise<recommendation | undefined> {
     //find out what date it is here
 
     //Get stock data
-    await this.c.getStockData("", ticker);
+    const data = await this.c.getStockData("", ticker);
+
+    if (!data) {
+      throw new Error("No data");
+    }
 
     const rec: recommendation = {
       ticker: ticker,
@@ -64,16 +76,39 @@ export class Domain {
     return rec;
   }
 
+  //Returns top 10 gainers of the day
   async getGainers(): Promise<scraperStock[]> {
-    //Implementation
-    return await this.s.scrapeGainers();
+    const data = await this.s.scrapeGainers();
+
+    //check if data is empty
+    if (!data || !data.length) {
+      throw new Error("No data");
+    }
+
+    //Serialize the data to the database
+    await this.r.insertGainerData(data);
+
+    //Return the data back to the calling server
+    return data;
   }
 
+  //Returns top 10 loosers of the day
   async getLoosers(): Promise<scraperStock[]> {
-    //Implementation
-    return await this.s.scrapeLoosers();
+    const data = await this.s.scrapeLoosers();
+
+    //check if data is empty
+    if (!data || !data.length) {
+      throw new Error("No data");
+    }
+
+    //Serialize the data to the database
+    await this.r.insertLooserData(data);
+
+    //return the data back to the calling server
+    return data;
   }
 
+  //Not ready to be implemented yet
   async compare() {
     //Implementation
   }

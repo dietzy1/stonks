@@ -7,24 +7,45 @@ class Domain {
         this.r = r;
         this.s = s;
     }
+    //Returns a recommendation
     async getStonk(ticker) {
         //find out what date it is here
         //Get stock data
-        await this.c.getStockData("", ticker);
+        const data = await this.c.getStockData("", ticker);
+        if (!data) {
+            throw new Error("No data");
+        }
         const rec = {
             ticker: ticker,
             buyornot: "Buy",
         };
         return rec;
     }
+    //Returns top 10 gainers of the day
     async getGainers() {
-        //Implementation
-        return await this.s.scrapeGainers();
+        const data = await this.s.scrapeGainers();
+        //check if data is empty
+        if (!data || !data.length) {
+            throw new Error("No data");
+        }
+        //Serialize the data to the database
+        await this.r.insertGainerData(data);
+        //Return the data back to the calling server
+        return data;
     }
+    //Returns top 10 loosers of the day
     async getLoosers() {
-        //Implementation
-        return await this.s.scrapeLoosers();
+        const data = await this.s.scrapeLoosers();
+        //check if data is empty
+        if (!data || !data.length) {
+            throw new Error("No data");
+        }
+        //Serialize the data to the database
+        await this.r.insertLooserData(data);
+        //return the data back to the calling server
+        return data;
     }
+    //Not ready to be implemented yet
     async compare() {
         //Implementation
     }
