@@ -19,21 +19,31 @@ class Server {
     //entry point for the getStonk REST method
     async getStonk(req, res) {
         console.log("getStonk called");
-        //Call domain method
-        this.d.getStonk(req.body.ticker).then((stock) => {
+        try {
+            const stock = await this.d.getStonk(req.body.ticker);
             if (stock) {
-                res.send(stock);
+                res.status(200).send(stock);
             }
-        });
+        }
+        catch (err) {
+            console.error(err);
+            res.status(400).send(err);
+        }
     }
     //entry point for the Gainers REST method
     async gainers(req, res) {
         console.log("Gainers called");
-        this.d.getGainers().then((stock) => {
-            if (stock) {
-                res.send(stock);
-            }
-        });
+        try {
+            this.d.getGainers().then((stock) => {
+                if (stock) {
+                    res.send(stock);
+                }
+            });
+        }
+        catch (err) {
+            console.error(err);
+            res.send(err);
+        }
     }
     //entry point for the Loosers REST method
     async loosers(req, res) {

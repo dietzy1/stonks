@@ -1,6 +1,7 @@
 //implement the server with express here
 
 import express from "express";
+
 import { stock, scraperStock, recommendation } from "../../domain/domain";
 
 interface domain {
@@ -10,15 +11,19 @@ interface domain {
   compare(): Promise<void>;
 }
 
-class Server {
+export class Server2 {
   private app: express.Application;
   private port: number;
   private d: domain;
+
   constructor(d: domain) {
     this.d = d;
     this.app = express();
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+
+    //register routes
+    this.registerRoutes();
 
     this.port = parseInt(process.env.PORT) || 3000;
 
@@ -27,29 +32,52 @@ class Server {
     });
   }
 
-  //entry point for the getStonk REST method
-  async getStonk(req: express.Request, res: express.Response) {
-    console.log("getStonk called");
-    //Call domain method
-    this.d.getStonk(req.body.ticker).then((stock: recommendation) => {
-      if (stock) {
-        res.send(stock);
-      }
+  private registerRoutes() {
+    this.app.get("/gainers", (req, res) => {
+      this.gainers(req, res);
     });
+
+    this.app.get("/loosers", (req, res) => {
+      this.loosers(req, res);
+    });
+
+    this.app.post("/getStonk", (req, res) => {
+      this.getStonk(req, res);
+    });
+  }
+
+  //entry point for the getStonk REST method
+  private async getStonk(req: express.Request, res: express.Response) {
+    console.log("getStonk called");
+    try {
+      const stock: recommendation = await this.d.getStonk(req.body.ticker);
+      if (stock) {
+        res.status(200).send(stock);
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(400).send(err);
+    }
   }
 
   //entry point for the Gainers REST method
-  async gainers(req: express.Request, res: express.Response) {
+  private async gainers(req: express.Request, res: express.Response) {
     console.log("Gainers called");
-    this.d.getGainers().then((stock: scraperStock[]) => {
-      if (stock) {
-        res.send(stock);
-      }
-    });
+
+    try {
+      this.d.getGainers().then((stock: scraperStock[]) => {
+        if (stock) {
+          res.send(stock);
+        }
+      });
+    } catch (err) {
+      console.error(err);
+      res.send(err);
+    }
   }
 
   //entry point for the Loosers REST method
-  async loosers(req: express.Request, res: express.Response) {
+  private async loosers(req: express.Request, res: express.Response) {
     console.log("Loosers called");
     this.d.getLoosers().then((stock: scraperStock[]) => {
       if (stock) {

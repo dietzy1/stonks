@@ -3,6 +3,7 @@ import { Repo } from "./adapters/repository/repo.js";
 import { Domain } from "./domain/domain.js";
 import { Server } from "./adapters/grpc/server.js";
 import { Scraper } from "./adapters/rest/scraping.js";
+import { Server2 } from "./adapters/rest/server.js";
 
 import { startServer } from "./adapters/grpc/server.js";
 
@@ -26,7 +27,7 @@ function main() {
   //Initiate fetch client
   const client = new Client();
 
-  //Initiate repository
+  //Initiate mongoDB repository repository
   const repo = new Repo();
 
   //Initiate domain
@@ -34,6 +35,9 @@ function main() {
 
   //Initiate GRPC server
   const server = new Server(domain);
+
+  //initiate REST server
+  new Server2(domain);
 
   //Start GRPC server
   startServer(server);

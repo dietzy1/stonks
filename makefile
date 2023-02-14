@@ -23,3 +23,6 @@ generate:
    --js_out=import_style="commonjs,binary":./dist/js/ 
    --grpc_out=grpc_js:./dist/js/ 
    --proto_path=./proto ./proto/*.proto
+
+
+GRPC_VERBOSITY=DEBUG GRPC_TRACE=all node dist/index.js
