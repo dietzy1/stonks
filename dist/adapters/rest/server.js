@@ -4,16 +4,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Server2 = void 0;
 const express_1 = __importDefault(require("express"));
-class Server {
+class Server2 {
     constructor(d) {
         this.d = d;
         this.app = (0, express_1.default)();
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: true }));
+        //register routes
+        this.registerRoutes();
         this.port = parseInt(process.env.PORT) || 3000;
         this.app.listen(this.port, () => {
             console.log(`Server listening on port ${this.port}`);
+        });
+    }
+    registerRoutes() {
+        this.app.get("/gainers", (req, res) => {
+            this.gainers(req, res);
+        });
+        this.app.get("/loosers", (req, res) => {
+            this.loosers(req, res);
+        });
+        this.app.post("/getStonk", (req, res) => {
+            this.getStonk(req, res);
         });
     }
     //entry point for the getStonk REST method
@@ -55,4 +69,5 @@ class Server {
         });
     }
 }
+exports.Server2 = Server2;
 //# sourceMappingURL=server.js.map

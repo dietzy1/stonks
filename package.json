@@ -40,6 +40,7 @@
     "mysql": "^2.18.1",
     "playwright": "^1.30.0",
     "protoc-gen-grpc-js": "^0.4.0",
-    "ts-proto": "^1.138.0"
+    "ts-proto": "^1.138.0",
+    "tsc-watch": "^6.0.0"
   }
 }

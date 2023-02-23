@@ -7,7 +7,15 @@ const mysql_1 = __importDefault(require("mysql"));
 //Optional SQL repository for storing data
 class sqlrepo {
     constructor() {
+        this.tables = [
+            stockTable,
+            gainerTable,
+            looserTable, //loosers table
+        ];
         this.client = this.connectDb();
+        for (const table of this.tables) {
+            this.createTable(table);
+        }
     }
     async getStockData(date, ticker) {
         try {
@@ -117,9 +125,9 @@ class sqlrepo {
         }
     }
     //I need to figure out how to pass in a table name
-    createTable() {
+    createTable(table) {
         try {
-            this.client.query("CREATE TABLE ", (err, result) => {
+            this.client.query("CREATE TABLE ?", [table], (err, result) => {
                 if (err)
                     throw err;
                 console.log("Created table" + result);
@@ -136,7 +144,7 @@ class sqlrepo {
                 host: process.env.MYSQL_HOST,
                 user: process.env.MYSQL_USER,
                 password: process.env.MYSQL_PASSWORD,
-                database: process.env.MYSQL_DATABASE,
+                database: "mydb",
             });
             con.connect(function (err) {
                 if (err)
@@ -151,15 +159,44 @@ class sqlrepo {
         }
     }
 }
-/*
-async getStockData(date: string, ticker: string): Promise<stock | undefined> {
-    try {
-      const db = this.client.db("stocks");
-      const collection = db.collection<stock>("stocks");
-      const data = await collection.findOne({ date: date, ticker: ticker });
-      return data;
-    } catch (err) {
-      console.error(err);
-    }
-  } */
+//SQL table string that can be passed into createTable()
+//Should mimic stock type
+const stockTable = `CREATE TABLE stocks (
+    afterHours VARCHAR(255),
+    close VARCHAR(255),
+    from VARCHAR(255),
+    high VARCHAR(255),
+    low VARCHAR(255),
+    open VARCHAR(255),
+    preMarket VARCHAR(255),
+    status VARCHAR(255),
+    symbol VARCHAR(255),
+    volume VARCHAR(255)
+  )`;
+const gainerTable = `CREATE TABLE gainers (
+    symbol VARCHAR(255),
+    name VARCHAR(255),
+    price VARCHAR(255),
+    change VARCHAR(255),
+    percentChange VARCHAR(255),
+    volume VARCHAR(255),
+    avgVolume VARCHAR(255),
+    marketCap VARCHAR(255),
+    peRatio VARCHAR(255),
+    week52High VARCHAR(255),
+    unused VARCHAR(255)
+  )`;
+const looserTable = `CREATE TABLE loosers (
+    symbol VARCHAR(255),
+    name VARCHAR(255),
+    price VARCHAR(255),
+    change VARCHAR(255),
+    percentChange VARCHAR(255),
+    volume VARCHAR(255),
+    avgVolume VARCHAR(255),
+    marketCap VARCHAR(255),
+    peRatio VARCHAR(255),
+    week52High VARCHAR(255),
+    unused VARCHAR(255)
+  )`;
 //# sourceMappingURL=sql.js.map

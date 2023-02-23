@@ -33,11 +33,11 @@ function main() {
   //Initiate domain
   const domain = new Domain(client, repo, scraper);
 
-  //Initiate GRPC server
-  const server = new Server(domain);
-
   //initiate REST server
   new Server2(domain);
+
+  //Initiate GRPC server
+  const server = new Server(domain);
 
   //Start GRPC server
   startServer(server);
