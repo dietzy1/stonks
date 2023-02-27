@@ -28,7 +28,8 @@ const repo_js_1 = require("./adapters/repository/repo.js");
 const domain_js_1 = require("./domain/domain.js");
 const server_js_1 = require("./adapters/grpc/server.js");
 const scraping_js_1 = require("./adapters/rest/scraping.js");
-const server_js_2 = require("./adapters/grpc/server.js");
+const server_js_2 = require("./adapters/rest/server.js");
+const server_js_3 = require("./adapters/grpc/server.js");
 const dotenv = __importStar(require("dotenv")); // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 /* require("dotenv").config(); */
 main();
@@ -42,14 +43,16 @@ function main() {
     const scraper = new scraping_js_1.Scraper();
     //Initiate fetch client
     const client = new client_js_1.Client();
-    //Initiate repository
+    //Initiate mongoDB repository repository
     const repo = new repo_js_1.Repo();
     //Initiate domain
     const domain = new domain_js_1.Domain(client, repo, scraper);
+    //initiate REST server
+    new server_js_2.Server2(domain);
     //Initiate GRPC server
     const server = new server_js_1.Server(domain);
     //Start GRPC server
-    (0, server_js_2.startServer)(server);
+    (0, server_js_3.startServer)(server);
 }
 function getDate() {
     const d = new Date();
